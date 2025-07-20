@@ -1,5 +1,17 @@
 import mongoose from "mongoose";
+import dotenv from "dotenv";
 
-export const connectDB=async()=>{
-    await mongoose.connect("mongodb+srv://utkarshdixit:Zing1242@cluster0.4pjztgx.mongodb.net/food-del").then(()=>console.log("Db Coonnected"));
-}
+dotenv.config();
+
+export const connectDB = async () => {
+    try {
+        await mongoose.connect(process.env.MONGO_URI, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+            ssl: true,
+        });
+        console.log(" MongoDB Connected Successfully");
+    } catch (err) {
+        console.error(" MongoDB Connection Failed:", err.message);
+        process.exit(1);
+    }}
